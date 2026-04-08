@@ -359,6 +359,86 @@
     .div-bb { background: rgba(255,193,7,0.15); color: var(--yellow); }
     .div-nov { background: rgba(0,0,0,0.06); color: #555; }
 
+    /* ── Featured Tournament ── */
+    .featured-tourney { margin-top: 32px; }
+    .featured-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .division-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+    }
+    .division-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .division-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .division-card .division-pill { margin-bottom: 10px; display: inline-block; }
+    .division-card p {
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .price-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .price-type {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 8px;
+    }
+    .price-amount {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #1a1a1a;
+    }
+    .price-amount span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gray);
+    }
+    .price-door {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+    .pricing-note {
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+      .featured-meta { grid-template-columns: 1fr; }
+      .division-cards { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── Format / How It Works ── */
     .format {
       padding: 100px 0;
@@ -731,7 +811,7 @@
         <li><a href="#format">Format</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#register" class="btn btn-primary nav-cta">Register Now</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary nav-cta">Register Now</a>
       <div class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span><span></span><span></span>
       </div>
@@ -762,7 +842,7 @@
           from Novice to AA.
         </p>
         <div class="hero-actions">
-          <a href="#register" class="btn btn-primary">Register for a Tournament</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register for a Tournament</a>
           <a href="#tournaments" class="btn btn-outline">View Schedule</a>
         </div>
       </div>
@@ -780,87 +860,66 @@
     <div class="container">
       <div class="tournaments-header">
         <div>
-          <div class="section-label">2026 Schedule</div>
-          <h2 class="section-title">Upcoming Tournaments</h2>
+          <div class="section-label">Next Up</div>
+          <h2 class="section-title">OVCU May Slam</h2>
         </div>
-        <a href="#register" class="btn btn-primary">Register Now</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register Now</a>
       </div>
-      <table class="tournaments-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Tournament</th>
-            <th>Location</th>
-            <th class="td-divisions">Divisions</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="td-date">Apr 26</td>
-            <td class="td-name">Spring Showdown</td>
-            <td class="td-location">Liberty Park, SLC</td>
-            <td class="td-divisions">
-              <span class="division-pill div-aa">AA</span>
-              <span class="division-pill div-bb">BB</span>
-              <span class="division-pill div-nov">Novice</span>
-            </td>
-            <td><span class="upcoming-tag tag-open">Open</span></td>
-          </tr>
-          <tr>
-            <td class="td-date">May 17</td>
-            <td class="td-name">May Classic</td>
-            <td class="td-location">Sugar House Park, SLC</td>
-            <td class="td-divisions">
-              <span class="division-pill div-aa">AA</span>
-              <span class="division-pill div-bb">BB</span>
-            </td>
-            <td><span class="upcoming-tag tag-open">Open</span></td>
-          </tr>
-          <tr>
-            <td class="td-date">Jun 7</td>
-            <td class="td-name">Summer Kickoff</td>
-            <td class="td-location">Provo Beach &amp; Park</td>
-            <td class="td-divisions">
-              <span class="division-pill div-aa">AA</span>
-              <span class="division-pill div-bb">BB</span>
-              <span class="division-pill div-nov">Novice</span>
-            </td>
-            <td><span class="upcoming-tag tag-soon">Filling</span></td>
-          </tr>
-          <tr>
-            <td class="td-date">Jun 28</td>
-            <td class="td-name">Midsummer Open</td>
-            <td class="td-location">Jordan River Pkwy, SLC</td>
-            <td class="td-divisions">
-              <span class="division-pill div-bb">BB</span>
-              <span class="division-pill div-nov">Novice</span>
-            </td>
-            <td><span class="upcoming-tag tag-open">Open</span></td>
-          </tr>
-          <tr>
-            <td class="td-date">Jul 19</td>
-            <td class="td-name">July Invitational</td>
-            <td class="td-location">Liberty Park, SLC</td>
-            <td class="td-divisions">
-              <span class="division-pill div-aa">AA</span>
-              <span class="division-pill div-bb">BB</span>
-              <span class="division-pill div-nov">Novice</span>
-            </td>
-            <td><span class="upcoming-tag tag-open">Open</span></td>
-          </tr>
-          <tr>
-            <td class="td-date">Aug 9</td>
-            <td class="td-name">Dog Days Classic</td>
-            <td class="td-location">Sugar House Park, SLC</td>
-            <td class="td-divisions">
-              <span class="division-pill div-aa">AA</span>
-              <span class="division-pill div-bb">BB</span>
-            </td>
-            <td><span class="upcoming-tag tag-open">Open</span></td>
-          </tr>
-        </tbody>
-      </table>
+
+      <!-- Featured Tournament -->
+      <div class="featured-tourney">
+        <div class="featured-details">
+          <div class="featured-meta">
+            <div class="detail-block">
+              <div class="label">Date</div>
+              <div class="value">Saturday, May 16, 2026</div>
+            </div>
+            <div class="detail-block">
+              <div class="label">Location</div>
+              <div class="value">Barnes Park — 950 W 200 N, Kaysville</div>
+            </div>
+            <div class="detail-block">
+              <div class="label">Format</div>
+              <div class="value">Men's &amp; Women's 4's + Juniors</div>
+            </div>
+            <div class="detail-block">
+              <div class="label">Check-In</div>
+              <div class="value">8:00–8:30 AM &bull; Play starts 9:00 AM</div>
+            </div>
+          </div>
+
+          <div class="division-info">
+            <h3 class="division-heading">Divisions</h3>
+            <div class="division-cards">
+              <div class="division-card">
+                <span class="division-pill div-aa">Competitive</span>
+                <p>Competitive players with good command of skills (AA and A players). If you have a minimum division of A or AA in UOVA coed rankings, you must play Competitive.</p>
+              </div>
+              <div class="division-card">
+                <span class="division-pill div-nov">Recreational</span>
+                <p>Recreational players and new players developing their skills (B and novice players).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pricing-info">
+            <h3 class="division-heading">Pricing</h3>
+            <div class="pricing-grid">
+              <div class="price-card">
+                <div class="price-type">UOVA Member</div>
+                <div class="price-amount">$25 <span>pre-register</span></div>
+                <div class="price-door">$30 day-of</div>
+              </div>
+              <div class="price-card">
+                <div class="price-type">Non-UOVA Member</div>
+                <div class="price-amount">$35 <span>pre-register</span></div>
+                <div class="price-door">$40 day-of</div>
+              </div>
+            </div>
+            <p class="pricing-note">Late registration after 8:45 AM adds $5. Pre-registration closes Thursday, May 14 at 11:59 PM.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -869,9 +928,9 @@
     <div class="container">
       <div class="section-label">Join the Competition</div>
       <h2 class="section-title">Ready to Play?</h2>
-      <p>Spots fill fast. Register your team today and get on the court this season.</p>
+      <p>Register for the OVCU May Slam — Men's &amp; Women's 4's and Juniors on grass at Barnes Park, Kaysville.</p>
       <div class="cta-buttons">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_placeholder/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register Your Team</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register for May Slam</a>
         <a href="#contact" class="btn btn-outline">Ask a Question</a>
       </div>
     </div>
@@ -1068,6 +1127,20 @@
           <p>Whether you're new to the club or a returning competitor, we're happy to help with registration, divisions, or anything else.</p>
           <div class="contact-methods">
             <div class="contact-method">
+              <span class="icon">📧</span>
+              <div>
+                <div class="method-label">Email</div>
+                <div class="method-value">ovcutah@gmail.com</div>
+              </div>
+            </div>
+            <div class="contact-method">
+              <span class="icon">📞</span>
+              <div>
+                <div class="method-label">Phone</div>
+                <div class="method-value">(801) 699-9136</div>
+              </div>
+            </div>
+            <div class="contact-method">
               <span class="icon">📸</span>
               <div>
                 <div class="method-label">Instagram</div>
@@ -1077,8 +1150,8 @@
             <div class="contact-method">
               <span class="icon">📍</span>
               <div>
-                <div class="method-label">Based In</div>
-                <div class="method-value">Salt Lake City, Utah</div>
+                <div class="method-label">Organizer</div>
+                <div class="method-value">Jackson Kohl — Kaysville, UT</div>
               </div>
             </div>
           </div>
