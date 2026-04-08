@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OVCU — Outdoor Volleyball Club of Utah</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Brand Colors ── */
+    :root {
+      --orange: #F57C00;
+      --orange-light: #FF9800;
+      --yellow: #FFC107;
+      --dark: #0a0a0a;
+      --dark-2: #111111;
+      --dark-3: #1a1a1a;
+      --dark-4: #222222;
+      --gray: #888;
+      --light: #f0f0f0;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .btn {
+      display: inline-block;
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.92; }
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-outline { background: transparent; color: var(--orange-light); border: 2px solid var(--orange-light); }
+    .btn-outline:hover { background: var(--orange-light); color: #fff; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #fff;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245, 124, 0, 0.15);
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .nav-logo-img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { flex-shrink: 0; }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(245, 124, 0, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255, 193, 7, 0.06) 0%, transparent 60%),
+        var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(245,124,0,0.08) 1px, transparent 0);
+      background-size: 40px 40px;
+    }
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 80px 0;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 124, 0, 0.12);
+      border: 1px solid rgba(245, 124, 0, 0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before { content: '●'; font-size: 0.5rem; }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .hero-title .accent {
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-photo-stack {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+    }
+    .hero-img {
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    }
+    .hero-img-main {
+      width: 100%;
+      height: 360px;
+      border: 2px solid rgba(245, 124, 0, 0.2);
+    }
+    .hero-img-secondary {
+      position: absolute;
+      bottom: -30px;
+      left: -30px;
+      width: 180px;
+      height: 130px;
+      border: 3px solid var(--dark);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+    }
+    .tag-open { background: rgba(76, 175, 80, 0.18); color: #66bb6a; }
+    .tag-soon { background: rgba(245, 124, 0, 0.18); color: var(--orange-light); }
+    .tag-full { background: rgba(255,255,255,0.07); color: var(--gray); }
+
+    /* ── Stats Bar ── */
+    .stats {
+      background: var(--dark-3);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 40px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* ── About / Features ── */
+    .about {
+      padding: 100px 0;
+      background: linear-gradient(rgba(10,10,10,0.75), rgba(10,10,10,0.82)), url('images/action-dig.jpg') center/cover no-repeat fixed;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text p {
+      color: var(--gray);
+      margin-top: 20px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .about-text p + p { margin-top: 14px; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(245,124,0,0.3); }
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+    .feature-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .feature-desc {
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ── Tournaments ── */
+    .tournaments {
+      padding: 100px 0;
+      background: linear-gradient(rgba(17,17,17,0.78), rgba(17,17,17,0.85)), url('images/team-photo.jpg') center/cover no-repeat fixed;
+    }
+    .tournaments-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .tournaments-table { width: 100%; border-collapse: collapse; }
+    .tournaments-table thead tr {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .tournaments-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 0 16px 16px;
+    }
+    .tournaments-table th:first-child { padding-left: 0; }
+    .tournaments-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .tournaments-table tbody tr:hover { background: rgba(245,124,0,0.04); }
+    .tournaments-table td {
+      padding: 18px 16px;
+      font-size: 0.92rem;
+      color: var(--light);
+    }
+    .tournaments-table td:first-child { padding-left: 0; }
+    .td-date { color: var(--orange-light); font-weight: 700; white-space: nowrap; }
+    .td-name { font-weight: 700; color: #fff; }
+    .td-location { color: var(--gray); }
+    .td-divisions { font-size: 0.8rem; color: var(--gray); }
+    .division-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.07);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-right: 4px;
+      margin-bottom: 2px;
+      color: #ccc;
+    }
+    .div-aa { background: rgba(245,124,0,0.18); color: var(--orange-light); }
+    .div-bb { background: rgba(255,193,7,0.15); color: var(--yellow); }
+    .div-nov { background: rgba(255,255,255,0.07); color: #bbb; }
+
+    /* ── Format / How It Works ── */
+    .format {
+      padding: 100px 0;
+      background: linear-gradient(rgba(10,10,10,0.75), rgba(10,10,10,0.82)), url('images/action-net.jpg') center/cover no-repeat fixed;
+    }
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .format-step {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 32px 28px;
+      position: relative;
+    }
+    .step-num {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(245,124,0,0.12);
+      margin-bottom: 16px;
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .step-desc { font-size: 0.87rem; color: var(--gray); line-height: 1.7; }
+    .format-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .detail-block {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+    }
+    .detail-block .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 4px;
+    }
+    .detail-block .value {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* ── Instagram / Gallery CTA ── */
+    .social-cta {
+      padding: 80px 0;
+      background: var(--dark-2);
+      text-align: center;
+    }
+    .social-cta .section-title { margin-bottom: 12px; }
+    .social-cta p { color: var(--gray); margin-bottom: 32px; font-size: 1rem; }
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .insta-link:hover { opacity: 0.9; transform: translateY(-2px); }
+    .insta-icon { font-size: 1.2rem; }
+
+    /* ── Register CTA ── */
+    .register-cta {
+      padding: 120px 0;
+      text-align: center;
+      background:
+        linear-gradient(rgba(10,10,10,0.68), rgba(10,10,10,0.75)),
+        url('images/action-spike.jpg') center/cover no-repeat fixed;
+    }
+    .register-cta .section-title { margin-bottom: 16px; }
+    .register-cta p {
+      color: var(--gray);
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Contact ── */
+    .contact {
+      padding: 100px 0;
+      background: var(--dark-2);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info p {
+      color: var(--gray);
+      margin-top: 16px;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    .contact-methods { margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+    }
+    .contact-method .icon { font-size: 1.2rem; }
+    .contact-method .method-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      margin-bottom: 2px;
+    }
+    .contact-method .method-value {
+      font-size: 0.92rem;
+      color: #fff;
+      font-weight: 600;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.92rem;
+      color: #fff;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      outline: none;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+    }
+    .form-group select option { background: var(--dark-3); }
+    .form-group textarea { min-height: 120px; }
+
+    /* ── Photo Gallery ── */
+    .gallery { padding: 100px 0; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-large {
+      grid-row: span 2;
+    }
+    .gallery-large img { height: 100%; min-height: 360px; }
+    .gallery-item:not(.gallery-large):not(.gallery-wide) img { height: 220px; }
+    .gallery-wide {
+      grid-column: span 2;
+    }
+    .gallery-wide img { height: 220px; }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-large { grid-row: span 1; }
+      .gallery-large img { min-height: 240px; }
+      .gallery-wide { grid-column: span 1; }
+    }
+
+    /* ── Email Signup ── */
+    .email-signup {
+      padding: 80px 0;
+      background: var(--dark);
+      border-top: 1px solid rgba(245,124,0,0.1);
+      border-bottom: 1px solid rgba(245,124,0,0.1);
+    }
+    .email-signup-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .email-signup-text { max-width: 420px; }
+    .email-signup-text p {
+      color: var(--gray);
+      margin-top: 12px;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .email-form { flex: 1; min-width: 280px; max-width: 440px; }
+    .email-input-row {
+      display: flex;
+      gap: 10px;
+    }
+    .email-input-row input {
+      flex: 1;
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 0.95rem;
+      color: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-input-row input:focus { border-color: var(--orange); }
+    .email-input-row .btn { flex-shrink: 0; }
+    .email-note {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      .email-signup-inner { flex-direction: column; text-align: center; }
+      .email-form { max-width: 100%; }
+      .email-input-row { flex-direction: column; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #060606;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .footer-logo-img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ── Mobile Nav Menu ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 70px; left: 0; right: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,124,0,0.15);
+      padding: 24px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 60px 0; }
+      .hero-visual { order: -1; }
+      .hero-card { max-width: 100%; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .format-grid { grid-template-columns: 1fr; }
+      .format-details { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .tournaments-table { font-size: 0.85rem; }
+      .tournaments-table .td-divisions { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 16px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="images/logo.png" alt="OVCU Logo" class="nav-logo-img" />
+        <span>Outdoor Volleyball Club of Utah</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#tournaments">Tournaments</a></li>
+        <li><a href="#format">Format</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#register" class="btn btn-primary nav-cta">Register Now</a>
+      <div class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#tournaments" onclick="toggleMenu()">Tournaments</a>
+    <a href="#format" onclick="toggleMenu()">Format</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+    <a href="#register" class="btn btn-primary" onclick="toggleMenu()" style="text-align:center;">Register Now</a>
+  </div>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Utah's Premier Grass Volleyball</div>
+        <h1 class="hero-title">
+          Play. Compete.<br>
+          <span class="accent">Rise Up.</span>
+        </h1>
+        <p class="hero-sub">
+          Outdoor Volleyball Club of Utah runs competitive grass volleyball
+          tournaments across the Wasatch Front — all skill levels welcome,
+          from Novice to AA.
+        </p>
+        <div class="hero-actions">
+          <a href="#register" class="btn btn-primary">Register for a Tournament</a>
+          <a href="#tournaments" class="btn btn-outline">View Schedule</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-photo-stack">
+          <img src="images/hero-action.jpg" alt="OVCU grass volleyball action" class="hero-img hero-img-main" />
+          <img src="images/action-net.jpg" alt="Net action at OVCU tournament" class="hero-img hero-img-secondary" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tournaments ── -->
+  <section class="tournaments" id="tournaments">
+    <div class="container">
+      <div class="tournaments-header">
+        <div>
+          <div class="section-label">2026 Schedule</div>
+          <h2 class="section-title">Upcoming Tournaments</h2>
+        </div>
+        <a href="#register" class="btn btn-primary">Register Now</a>
+      </div>
+      <table class="tournaments-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Tournament</th>
+            <th>Location</th>
+            <th class="td-divisions">Divisions</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-date">Apr 26</td>
+            <td class="td-name">Spring Showdown</td>
+            <td class="td-location">Liberty Park, SLC</td>
+            <td class="td-divisions">
+              <span class="division-pill div-aa">AA</span>
+              <span class="division-pill div-bb">BB</span>
+              <span class="division-pill div-nov">Novice</span>
+            </td>
+            <td><span class="upcoming-tag tag-open">Open</span></td>
+          </tr>
+          <tr>
+            <td class="td-date">May 17</td>
+            <td class="td-name">May Classic</td>
+            <td class="td-location">Sugar House Park, SLC</td>
+            <td class="td-divisions">
+              <span class="division-pill div-aa">AA</span>
+              <span class="division-pill div-bb">BB</span>
+            </td>
+            <td><span class="upcoming-tag tag-open">Open</span></td>
+          </tr>
+          <tr>
+            <td class="td-date">Jun 7</td>
+            <td class="td-name">Summer Kickoff</td>
+            <td class="td-location">Provo Beach &amp; Park</td>
+            <td class="td-divisions">
+              <span class="division-pill div-aa">AA</span>
+              <span class="division-pill div-bb">BB</span>
+              <span class="division-pill div-nov">Novice</span>
+            </td>
+            <td><span class="upcoming-tag tag-soon">Filling</span></td>
+          </tr>
+          <tr>
+            <td class="td-date">Jun 28</td>
+            <td class="td-name">Midsummer Open</td>
+            <td class="td-location">Jordan River Pkwy, SLC</td>
+            <td class="td-divisions">
+              <span class="division-pill div-bb">BB</span>
+              <span class="division-pill div-nov">Novice</span>
+            </td>
+            <td><span class="upcoming-tag tag-open">Open</span></td>
+          </tr>
+          <tr>
+            <td class="td-date">Jul 19</td>
+            <td class="td-name">July Invitational</td>
+            <td class="td-location">Liberty Park, SLC</td>
+            <td class="td-divisions">
+              <span class="division-pill div-aa">AA</span>
+              <span class="division-pill div-bb">BB</span>
+              <span class="division-pill div-nov">Novice</span>
+            </td>
+            <td><span class="upcoming-tag tag-open">Open</span></td>
+          </tr>
+          <tr>
+            <td class="td-date">Aug 9</td>
+            <td class="td-name">Dog Days Classic</td>
+            <td class="td-location">Sugar House Park, SLC</td>
+            <td class="td-divisions">
+              <span class="division-pill div-aa">AA</span>
+              <span class="division-pill div-bb">BB</span>
+            </td>
+            <td><span class="upcoming-tag tag-open">Open</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Register CTA ── -->
+  <section class="register-cta" id="register">
+    <div class="container">
+      <div class="section-label">Join the Competition</div>
+      <h2 class="section-title">Ready to Play?</h2>
+      <p>Spots fill fast. Register your team today and get on the court this season.</p>
+      <div class="cta-buttons">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf_placeholder/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register Your Team</a>
+        <a href="#contact" class="btn btn-outline">Ask a Question</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Email Signup ── -->
+  <section class="email-signup" id="email-signup">
+    <div class="container">
+      <div class="email-signup-inner">
+        <div class="email-signup-text">
+          <div class="section-label">Stay in the Loop</div>
+          <h2 class="section-title">Get Tournament Updates</h2>
+          <p>Be the first to know when registration opens, new events drop, and results go live.</p>
+        </div>
+        <form class="email-form" onsubmit="handleEmailSignup(event)">
+          <div class="email-input-row">
+            <input type="email" id="signup-email" placeholder="you@example.com" required />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </div>
+          <div class="email-note">No spam — just tournament announcements. Unsubscribe anytime.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stats ── -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Players &amp; Counting</div>
+        </div>
+        <div>
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Tournaments Per Year</div>
+        </div>
+        <div>
+          <div class="stat-number">3</div>
+          <div class="stat-label">Skill Divisions</div>
+        </div>
+        <div>
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Grass Courts</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">About OVCU</div>
+          <h2 class="section-title">Utah Volleyball Built on Grass</h2>
+          <p>
+            The Outdoor Volleyball Club of Utah (OVCU) is the go-to community
+            for competitive grass volleyball in the state. From first-timers
+            to seasoned competitors, we run tournaments designed to challenge
+            every level of play.
+          </p>
+          <p>
+            We host events across the Wasatch Front — Liberty Park, Sugar House,
+            Provo, and more — with beautiful mountain backdrops and top-tier
+            competition every weekend.
+          </p>
+          <div style="margin-top:32px;">
+            <a href="#tournaments" class="btn btn-primary">See Upcoming Events</a>
+          </div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🌿</div>
+            <div class="feature-name">Grass Courts Only</div>
+            <div class="feature-desc">Every tournament is played on natural grass — the truest outdoor volleyball experience.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏆</div>
+            <div class="feature-name">All Skill Levels</div>
+            <div class="feature-desc">Novice, BB, and AA divisions ensure everyone plays at their level and is challenged.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">⛰️</div>
+            <div class="feature-name">Utah Locations</div>
+            <div class="feature-desc">Events throughout the Wasatch Front with the iconic Utah mountains as your backdrop.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <div class="feature-name">Community First</div>
+            <div class="feature-desc">More than tournaments — a growing community of Utah volleyball players who love the game.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Format ── -->
+  <section class="format" id="format">
+    <div class="container">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Tournament Format</h2>
+      <div class="format-grid">
+        <div class="format-step">
+          <div class="step-num">01</div>
+          <div class="step-title">Register Your Team</div>
+          <div class="step-desc">Sign up through the registration form. Choose your division — Novice, BB, or AA — and secure your spot before it fills.</div>
+        </div>
+        <div class="format-step">
+          <div class="step-num">02</div>
+          <div class="step-title">Check In at 8:30am</div>
+          <div class="step-desc">Arrive early, check in with your team, and get your bracket assignment. Pool play begins promptly after check-in.</div>
+        </div>
+        <div class="format-step">
+          <div class="step-num">03</div>
+          <div class="step-title">Compete &amp; Win</div>
+          <div class="step-desc">Battle through pool play into bracket competition. Winners earn OVCU bragging rights and prizes.</div>
+        </div>
+      </div>
+      <div class="format-details">
+        <div class="detail-block">
+          <div class="label">Format</div>
+          <div class="value">4v4 &amp; 3v3 available</div>
+        </div>
+        <div class="detail-block">
+          <div class="label">Check-In</div>
+          <div class="value">8:30 AM sharp</div>
+        </div>
+        <div class="detail-block">
+          <div class="label">Divisions</div>
+          <div class="value">AA / BB / Novice</div>
+        </div>
+        <div class="detail-block">
+          <div class="label">Surface</div>
+          <div class="value">Natural grass courts</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Photo Gallery ── -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:48px;">
+        <div class="section-label">Game Day</div>
+        <h2 class="section-title">See You on the Grass</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item gallery-large">
+          <img src="images/action-net.jpg" alt="Net battle at OVCU tournament" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/action-dig.jpg" alt="Player digging at OVCU tournament" />
+        </div>
+        <div class="gallery-item">
+          <img src="images/action-spike.jpg" alt="Spike at OVCU tournament" />
+        </div>
+        <div class="gallery-item gallery-wide">
+          <img src="images/team-photo.jpg" alt="OVCU team celebration" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Instagram ── -->
+  <section class="social-cta">
+    <div class="container">
+      <div class="section-label">Follow Along</div>
+      <h2 class="section-title">See the Action on Instagram</h2>
+      <p>Tournament highlights, action shots, and updates — follow us to stay in the loop.</p>
+      <a href="https://www.instagram.com/ovcutah" target="_blank" rel="noopener" class="insta-link">
+        <span class="insta-icon">📸</span>
+        @ovcutah
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="section-label">Get in Touch</div>
+          <h2 class="section-title">Have Questions?</h2>
+          <p>Whether you're new to the club or a returning competitor, we're happy to help with registration, divisions, or anything else.</p>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <span class="icon">📸</span>
+              <div>
+                <div class="method-label">Instagram</div>
+                <div class="method-value">@ovcutah</div>
+              </div>
+            </div>
+            <div class="contact-method">
+              <span class="icon">📍</span>
+              <div>
+                <div class="method-label">Based In</div>
+                <div class="method-value">Salt Lake City, Utah</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" placeholder="Jordan" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject">
+              <option value="">Select a topic...</option>
+              <option>Tournament Registration</option>
+              <option>Division Questions</option>
+              <option>Schedule &amp; Locations</option>
+              <option>Sponsorship / Partnership</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="What can we help you with?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="images/logo.png" alt="OVCU Logo" class="footer-logo-img" />
+          <span>Outdoor Volleyball Club of Utah</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#tournaments">Tournaments</a></li>
+          <li><a href="#format">Format</a></li>
+          <li><a href="#register">Register</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 Outdoor Volleyball Club of Utah. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('open');
+    }
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.nav-hamburger');
+      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = 'Message Sent!';
+      btn.style.background = '#4caf50';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+
+    function handleEmailSignup(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const input = e.target.querySelector('input[type="email"]');
+      btn.textContent = 'Subscribed!';
+      btn.style.background = '#4caf50';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Subscribe';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+
+    // Smooth nav background on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 40) {
+        nav.style.background = 'rgba(10,10,10,0.98)';
+      } else {
+        nav.style.background = 'rgba(10,10,10,0.92)';
+      }
+    });
+  </script>
+</body>
+</html>
