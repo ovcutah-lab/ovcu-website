@@ -945,10 +945,14 @@
           <h2 class="section-title">Get Tournament Updates</h2>
           <p>Be the first to know when registration opens, new events drop, and results go live.</p>
         </div>
-        <form class="email-form" onsubmit="handleEmailSignup(event)">
+        <form class="email-form" action="https://app.us14.list-manage.com/subscribe/post?u=6565f37d4229ac06a6a31ac4b&amp;id=e5a7903185&amp;f_id=00eea2e0f0" method="post" target="_blank">
           <div class="email-input-row">
-            <input type="email" id="signup-email" placeholder="you@example.com" required />
+            <input type="email" name="EMAIL" placeholder="you@example.com" required />
             <button type="submit" class="btn btn-primary">Subscribe</button>
+          </div>
+          <!-- Bot signup protection -->
+          <div aria-hidden="true" style="position:absolute;left:-5000px;">
+            <input type="text" name="b_6565f37d4229ac06a6a31ac4b_e5a7903185" tabindex="-1" value="" />
           </div>
           <div class="email-note">No spam — just tournament announcements. Unsubscribe anytime.</div>
         </form>
