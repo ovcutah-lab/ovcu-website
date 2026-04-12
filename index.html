@@ -675,6 +675,7 @@
       object-fit: cover;
       transition: transform 0.4s;
     }
+    .gallery-item { cursor: pointer; }
     .gallery-item:hover img { transform: scale(1.05); }
     .gallery-large {
       grid-row: span 2;
@@ -691,6 +692,60 @@
       .gallery-large img { min-height: 240px; }
       .gallery-wide { grid-column: span 1; }
     }
+
+    /* ── Lightbox ── */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.active {
+      display: flex;
+    }
+    .lightbox-overlay img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      font-size: 2.2rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 10000;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 10000;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      padding: 16px;
+    }
+    .lightbox-nav:hover { opacity: 1; }
+    .lightbox-prev { left: 12px; }
+    .lightbox-next { right: 12px; }
 
     /* ── Email Signup ── */
     .email-signup {
@@ -893,10 +948,9 @@
           <img src="images/block-action.jpg" alt="Block at the net during OVCU tournament" />
           <img src="images/action-net.jpg" alt="Net action at OVCU tournament" />
           <img src="images/action-dig.jpg" alt="Player digging at OVCU tournament" />
-          <img src="images/game-wide.jpg" alt="OVCU grass volleyball game" />
           <img src="images/action-spike.jpg" alt="Spike at OVCU tournament" />
-          <img src="images/net-players.jpg" alt="Players at the net" />
           <img src="images/spike-building.jpg" alt="Player spiking at OVCU tournament" />
+          <img src="images/net-players.jpg" alt="Players at the net" />
           <img src="images/palm-serve.jpg" alt="Player serving at OVCU grass volleyball" />
           <img src="images/duo-play.jpg" alt="Two players going for the ball" />
         </div>
@@ -1141,8 +1195,8 @@
         <div class="gallery-item">
           <img src="images/action-spike.jpg" alt="Spike at OVCU tournament" />
         </div>
-        <div class="gallery-item gallery-wide">
-          <img src="images/game-wide.jpg" alt="OVCU grass volleyball game in progress" />
+        <div class="gallery-item">
+          <img src="images/spike-building.jpg" alt="Player spiking at OVCU tournament" />
         </div>
         <div class="gallery-item">
           <img src="images/net-players.jpg" alt="Players at the net" />
@@ -1152,9 +1206,6 @@
         </div>
         <div class="gallery-item gallery-wide">
           <img src="images/team-photo.jpg" alt="OVCU team celebration" />
-        </div>
-        <div class="gallery-item">
-          <img src="images/spike-building.jpg" alt="Player spiking at OVCU tournament" />
         </div>
         <div class="gallery-item">
           <img src="images/palm-serve.jpg" alt="Player serving at grass volleyball event" />
@@ -1291,6 +1342,14 @@
     </div>
   </footer>
 
+  <!-- Lightbox Overlay -->
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
+    <img id="lightboxImg" src="" alt="Gallery photo enlarged" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
+  </div>
+
   <script>
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
@@ -1355,6 +1414,59 @@
         nav.style.background = 'rgba(255,255,255,0.95)';
       }
     });
+
+    // Lightbox gallery
+    (function() {
+      const overlay = document.getElementById('lightboxOverlay');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const galleryItems = document.querySelectorAll('.gallery-item img');
+      const images = Array.from(galleryItems).map(img => img.src);
+      let currentIndex = 0;
+
+      galleryItems.forEach((img, index) => {
+        img.addEventListener('click', () => {
+          currentIndex = index;
+          lightboxImg.src = images[currentIndex];
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeLightbox() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeLightbox();
+      });
+
+      document.getElementById('lightboxPrev').addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        lightboxImg.src = images[currentIndex];
+      });
+
+      document.getElementById('lightboxNext').addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % images.length;
+        lightboxImg.src = images[currentIndex];
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          lightboxImg.src = images[currentIndex];
+        }
+        if (e.key === 'ArrowRight') {
+          currentIndex = (currentIndex + 1) % images.length;
+          lightboxImg.src = images[currentIndex];
+        }
+      });
+    })();
   </script>
 </body>
 </html>
