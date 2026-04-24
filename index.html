@@ -271,6 +271,72 @@
     .tag-soon { background: rgba(245, 124, 0, 0.18); color: var(--orange-light); }
     .tag-full { background: rgba(0,0,0,0.06); color: var(--gray); }
 
+    /* ── Master Schedule ── */
+    .schedule { padding: 80px 0; background: var(--dark-3); }
+    .schedule-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 40px;
+    }
+    .schedule-month {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-top: 24px;
+      margin-bottom: 4px;
+    }
+    .schedule-month:first-child { margin-top: 0; }
+    .schedule-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 16px 24px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .schedule-item-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      min-width: 0;
+    }
+    .schedule-date {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+      white-space: nowrap;
+      min-width: 80px;
+    }
+    .schedule-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+    }
+    .schedule-detail {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+    .schedule-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    @media (max-width: 600px) {
+      .schedule-item { padding: 14px 16px; }
+      .schedule-item-info { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+
     /* ── Stats Bar ── */
     .stats {
       background: var(--dark-3);
@@ -908,6 +974,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#tournaments">Tournaments</a></li>
+        <li><a href="#schedule">Schedule</a></li>
         <li><a href="#format">Format</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -922,6 +989,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about" onclick="toggleMenu()">About</a>
     <a href="#tournaments" onclick="toggleMenu()">Tournaments</a>
+    <a href="#schedule" onclick="toggleMenu()">Schedule</a>
     <a href="#format" onclick="toggleMenu()">Format</a>
     <a href="#contact" onclick="toggleMenu()">Contact</a>
     <a href="#register" class="btn btn-primary" onclick="toggleMenu()" style="text-align:center;">Register Now</a>
@@ -1025,6 +1093,116 @@
             </div>
             <p class="pricing-note">Late registration after 8:45 AM adds $5. Pre-registration closes Thursday, May 14 at 11:59 PM.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Master Schedule ── -->
+  <section class="schedule" id="schedule">
+    <div class="container">
+      <div class="section-label">2026 Season</div>
+      <h2 class="section-title">Master Schedule</h2>
+
+      <div class="schedule-grid">
+        <div class="schedule-month">May</div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">May 16</div>
+            <div>
+              <div class="schedule-name">OVCU 4's May Slam</div>
+              <div class="schedule-detail">Men's &amp; Women's 4's + Juniors &bull; Barnes Park, Kaysville</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-open">Open</span>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">May 30</div>
+            <div>
+              <div class="schedule-name">OVCU 3's</div>
+              <div class="schedule-detail">Triples &bull; Barnes Park, Kaysville</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+
+        <div class="schedule-month">June</div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Jun 20</div>
+            <div>
+              <div class="schedule-name">OVCU 3's</div>
+              <div class="schedule-detail">Triples &bull; Location TBA</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Jun 26</div>
+            <div>
+              <div class="schedule-name">OVCU All Nighter</div>
+              <div class="schedule-detail">2's to 4's Reverse Coed &bull; Location TBA</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+
+        <div class="schedule-month">July</div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Jul 25</div>
+            <div>
+              <div class="schedule-name">OVCU Summer Slam Triples</div>
+              <div class="schedule-detail">Triples &bull; Orem</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+
+        <div class="schedule-month">August</div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Aug 1</div>
+            <div>
+              <div class="schedule-name">OVCU Coed 4's</div>
+              <div class="schedule-detail">Coed 4v4 &bull; Orem</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Aug 15</div>
+            <div>
+              <div class="schedule-name">OVCU Doubles</div>
+              <div class="schedule-detail">Men's &amp; Women's Doubles &bull; Location TBA</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Aug 22</div>
+            <div>
+              <div class="schedule-name">OVCU August Slam</div>
+              <div class="schedule-detail">Coed 4's &bull; Orem</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
+        </div>
+
+        <div class="schedule-month">October</div>
+        <div class="schedule-item">
+          <div class="schedule-item-info">
+            <div class="schedule-date">Oct 3</div>
+            <div>
+              <div class="schedule-name">OVCU Halloween Slam</div>
+              <div class="schedule-detail">Coed 4v4 &bull; Location TBA</div>
+            </div>
+          </div>
+          <span class="schedule-tag tag-soon">Coming Soon</span>
         </div>
       </div>
     </div>
