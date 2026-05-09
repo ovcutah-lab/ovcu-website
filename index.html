@@ -952,6 +952,8 @@
       .nav-hamburger { display: flex; }
       .tournaments-table { font-size: 0.85rem; }
       .tournaments-table .td-divisions { display: none; }
+      .featured-tourney { grid-template-columns: 1fr !important; }
+      .tourney-flyer { order: -1; }
     }
     @media (max-width: 600px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -996,54 +998,19 @@
     <a href="#register" class="btn btn-primary" onclick="toggleMenu()" style="text-align:center;">Register Now</a>
   </div>
 
-  <!-- ── Hero ── -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <div class="hero-eyebrow">Utah's Premier Grass Volleyball</div>
-        <h1 class="hero-title">
-          Play. Compete.<br>
-          <span class="accent">Rise Up.</span>
-        </h1>
-        <p class="hero-sub">
-          Outdoor Volleyball Club of Utah runs competitive grass volleyball
-          tournaments across the Wasatch Front — all skill levels welcome,
-          from Novice to AA.
-        </p>
-        <div class="hero-actions">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register for a Tournament</a>
-          <a href="#tournaments" class="btn btn-outline">View Schedule</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-slideshow" id="heroSlideshow">
-          <img src="images/hero-action.jpg" alt="OVCU grass volleyball action" class="active" />
-          <img src="images/block-action.jpg" alt="Block at the net during OVCU tournament" />
-          <img src="images/action-net.jpg" alt="Net action at OVCU tournament" />
-          <img src="images/action-dig.jpg" alt="Player digging at OVCU tournament" />
-          <img src="images/action-spike.jpg" alt="Spike at OVCU tournament" />
-          <img src="images/spike-building.jpg" alt="Player spiking at OVCU tournament" />
-          <img src="images/net-players.jpg" alt="Players at the net" />
-          <img src="images/palm-serve.jpg" alt="Player serving at OVCU grass volleyball" />
-          <img src="images/duo-play.jpg" alt="Two players going for the ball" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Tournaments ── -->
-  <section class="tournaments" id="tournaments">
+  <!-- ── Tournaments (Featured) ── -->
+  <section class="tournaments" id="tournaments" style="padding-top: 120px;">
     <div class="container">
       <div class="tournaments-header">
         <div>
-          <div class="section-label">Next Up</div>
+          <div class="section-label">Next Up — Saturday, May 16</div>
           <h2 class="section-title">OVCU May Slam</h2>
         </div>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register Now</a>
       </div>
 
-      <!-- Featured Tournament -->
-      <div class="featured-tourney">
+      <!-- Featured Tournament with Flyer -->
+      <div class="featured-tourney" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
         <div class="featured-details">
           <div class="featured-meta">
             <div class="detail-block">
@@ -1056,11 +1023,19 @@
             </div>
             <div class="detail-block">
               <div class="label">Format</div>
-              <div class="value">Men's &amp; Women's 4's + Juniors</div>
+              <div class="value">Men's &amp; Women's 4's + Juniors (15 &amp; Under)</div>
             </div>
             <div class="detail-block">
               <div class="label">Check-In</div>
-              <div class="value">8:00–8:30 AM &bull; Play starts 9:00 AM</div>
+              <div class="value">8:00 AM &bull; Games begin 9:00 AM</div>
+            </div>
+            <div class="detail-block">
+              <div class="label">Structure</div>
+              <div class="value">Pool Play → Single Elimination</div>
+            </div>
+            <div class="detail-block">
+              <div class="label">Contact</div>
+              <div class="value">Call or text Dalton: (801) 903-8352</div>
             </div>
           </div>
 
@@ -1068,12 +1043,12 @@
             <h3 class="division-heading">Divisions</h3>
             <div class="division-cards">
               <div class="division-card">
-                <span class="division-pill div-aa">Competitive</span>
-                <p>Competitive players with good command of skills (AA and A players). If you have a minimum division of A or AA in UOVA coed rankings, you must play Competitive.</p>
+                <span class="division-pill div-aa">Competitive (AA/A)</span>
+                <p>Competitive players with good command of skills. If you have a minimum division of A or AA in UOVA coed rankings, you must play Competitive.</p>
               </div>
               <div class="division-card">
-                <span class="division-pill div-nov">Recreational</span>
-                <p>Recreational players and new players developing their skills (B and novice players).</p>
+                <span class="division-pill div-nov">Recreational (BB/B/Novice)</span>
+                <p>Recreational players and new players developing their skills.</p>
               </div>
             </div>
           </div>
@@ -1092,8 +1067,49 @@
                 <div class="price-door">$40 day-of</div>
               </div>
             </div>
-            <p class="pricing-note">Late registration after 8:45 AM adds $5. Pre-registration closes Thursday, May 14 at 11:59 PM.</p>
+            <p class="pricing-note">Late registration after 8:45 AM adds $5. Pre-registration closes Thursday, May 14 at 11:59 PM. Prizes for top teams!</p>
           </div>
+
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 24px; display: inline-block;">Register for May Slam</a>
+        </div>
+
+        <div class="tourney-flyer" id="tourneyFlyer">
+          <img src="images/may-slam-flyer.jpg" alt="OVCU May Slam Tournament Flyer" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Utah's Premier Grass Volleyball</div>
+        <h1 class="hero-title">
+          Play. Compete.<br>
+          <span class="accent">Rise Up.</span>
+        </h1>
+        <p class="hero-sub">
+          Outdoor Volleyball Club of Utah runs competitive grass volleyball
+          tournaments across the Wasatch Front — all skill levels welcome,
+          from Novice to AA.
+        </p>
+        <div class="hero-actions">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register for a Tournament</a>
+          <a href="#schedule" class="btn btn-outline">View Schedule</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-slideshow" id="heroSlideshow">
+          <img src="images/hero-action.jpg" alt="OVCU grass volleyball action" class="active" />
+          <img src="images/block-action.jpg" alt="Block at the net during OVCU tournament" />
+          <img src="images/action-net.jpg" alt="Net action at OVCU tournament" />
+          <img src="images/action-dig.jpg" alt="Player digging at OVCU tournament" />
+          <img src="images/action-spike.jpg" alt="Spike at OVCU tournament" />
+          <img src="images/spike-building.jpg" alt="Player spiking at OVCU tournament" />
+          <img src="images/net-players.jpg" alt="Players at the net" />
+          <img src="images/palm-serve.jpg" alt="Player serving at OVCU grass volleyball" />
+          <img src="images/duo-play.jpg" alt="Two players going for the ball" />
         </div>
       </div>
     </div>
