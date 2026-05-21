@@ -272,6 +272,50 @@
     .tag-soon { background: rgba(245, 124, 0, 0.18); color: var(--orange-light); }
     .tag-full { background: rgba(0,0,0,0.06); color: var(--gray); }
 
+    /* ── Tournament Details Dropdown ── */
+    .tourney-dropdown {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .tourney-dropdown-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      background: none;
+      border: none;
+      width: 100%;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .tourney-dropdown-toggle:hover { background: rgba(0,0,0,0.02); }
+    .tourney-dropdown-arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+      color: var(--orange);
+    }
+    .tourney-dropdown.open .tourney-dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .tourney-dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .tourney-dropdown.open .tourney-dropdown-content {
+      max-height: 800px;
+    }
+    .tourney-dropdown-inner {
+      padding: 0 24px 24px;
+    }
+
     /* ── Master Schedule ── */
     .schedule { padding: 80px 0; background: var(--dark-3); }
     .schedule-grid {
@@ -1012,39 +1056,50 @@
       <!-- Featured Tournament with Flyer -->
       <div class="featured-tourney" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
         <div class="featured-details">
-          <div class="featured-meta">
-            <div class="detail-block">
-              <div class="label">Date</div>
-              <div class="value">Saturday, June 20, 2026</div>
-            </div>
-            <div class="detail-block">
-              <div class="label">Location</div>
-              <div class="value">Barnes Park — 950 W 200 N, Kaysville, UT 84037</div>
-            </div>
-            <div class="detail-block">
-              <div class="label">Format</div>
-              <div class="value">3v3 Men's &amp; Women's Grass Tourney</div>
-            </div>
-            <div class="detail-block">
-              <div class="label">Check-In</div>
-              <div class="value">8:00 AM &bull; Games begin 9:00 AM</div>
-            </div>
-            <div class="detail-block">
-              <div class="label">Structure</div>
-              <div class="value">Pool Play → Seeded Tournament</div>
-            </div>
-            <div class="detail-block">
-              <div class="label">Divisions</div>
-              <div class="value">Competitive (AA/A) &bull; Recreational (BB/B) &bull; Novice</div>
-            </div>
-            <div class="detail-block">
-              <div class="label">Contact</div>
-              <div class="value">Call or text Dalton: (801) 903-8352</div>
+          <div class="detail-block" style="margin-bottom: 8px;">
+            <div class="label">Date</div>
+            <div class="value" style="font-size: 1.3rem; font-weight: 700;">Saturday, June 20, 2026</div>
+          </div>
+          <div class="detail-block">
+            <div class="label">Location</div>
+            <div class="value">Barnes Park — 950 W 200 N, Kaysville, UT 84037</div>
+          </div>
+
+          <div class="tourney-dropdown" id="tourneyDropdown">
+            <button class="tourney-dropdown-toggle" onclick="document.getElementById('tourneyDropdown').classList.toggle('open')">
+              Tournament Details
+              <span class="tourney-dropdown-arrow">&#9660;</span>
+            </button>
+            <div class="tourney-dropdown-content">
+              <div class="tourney-dropdown-inner">
+                <div class="featured-meta">
+                  <div class="detail-block">
+                    <div class="label">Format</div>
+                    <div class="value">3v3 Men's &amp; Women's Grass Tourney</div>
+                  </div>
+                  <div class="detail-block">
+                    <div class="label">Check-In</div>
+                    <div class="value">8:00 AM &bull; Games begin 9:00 AM</div>
+                  </div>
+                  <div class="detail-block">
+                    <div class="label">Structure</div>
+                    <div class="value">Pool Play → Seeded Tournament</div>
+                  </div>
+                  <div class="detail-block">
+                    <div class="label">Divisions</div>
+                    <div class="value">Competitive (AA/A) &bull; Recreational (BB/B) &bull; Novice</div>
+                  </div>
+                  <div class="detail-block">
+                    <div class="label">Contact</div>
+                    <div class="value">Call or text Dalton: (801) 903-8352</div>
+                  </div>
+                </div>
+                <p style="margin-top: 16px; color: var(--gray); font-size: 0.9rem;">Prizes for top teams! Register through the link provided.</p>
+              </div>
             </div>
           </div>
 
-          <p style="margin-top: 16px; color: var(--gray); font-size: 0.9rem;">Prizes for top teams! Register through the link provided.</p>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 16px; display: inline-block;">Register for OVCU 3's</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSePSPaGe2tYVgGGpiGicsp_nKaBMSwAZ7PfPFaYVLbRGwiifg/viewform" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 20px; display: inline-block;">Register for OVCU 3's</a>
         </div>
 
         <div class="tourney-flyer" id="tourneyFlyer">
