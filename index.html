@@ -270,6 +270,7 @@
     }
     .tag-open { background: rgba(76, 175, 80, 0.18); color: #66bb6a; }
     .tag-soon { background: rgba(245, 124, 0, 0.18); color: var(--orange-light); }
+    .tag-closed { background: rgba(158, 158, 158, 0.18); color: #9e9e9e; }
     .tag-full { background: rgba(0,0,0,0.06); color: var(--gray); }
 
     /* ── Tournament Details Dropdown ── */
@@ -1154,7 +1155,7 @@
 
       <div class="schedule-grid">
         <div class="schedule-month">June</div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-06-20">
           <div class="schedule-item-info">
             <div class="schedule-date">Jun 20</div>
             <div>
@@ -1166,7 +1167,7 @@
         </div>
 
         <div class="schedule-month">July</div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-07-18">
           <div class="schedule-item-info">
             <div class="schedule-date">Jul 18</div>
             <div>
@@ -1176,7 +1177,7 @@
           </div>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSc1qlnYlzGuH2AF3_wMI1F1L6tzMkxaYTcT-RrxwCVhl00ENg/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
         </div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-07-25">
           <div class="schedule-item-info">
             <div class="schedule-date">Jul 25</div>
             <div>
@@ -1188,7 +1189,7 @@
         </div>
 
         <div class="schedule-month">August</div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-08-01">
           <div class="schedule-item-info">
             <div class="schedule-date">Aug 1</div>
             <div>
@@ -1198,7 +1199,7 @@
           </div>
           <span class="schedule-tag tag-soon">Coming Soon</span>
         </div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-08-15">
           <div class="schedule-item-info">
             <div class="schedule-date">Aug 15</div>
             <div>
@@ -1208,7 +1209,7 @@
           </div>
           <span class="schedule-tag tag-soon">Coming Soon</span>
         </div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-08-22">
           <div class="schedule-item-info">
             <div class="schedule-date">Aug 22</div>
             <div>
@@ -1220,7 +1221,7 @@
         </div>
 
         <div class="schedule-month">October</div>
-        <div class="schedule-item">
+        <div class="schedule-item" data-date="2026-10-03">
           <div class="schedule-item-info">
             <div class="schedule-date">Oct 3</div>
             <div>
@@ -1559,6 +1560,18 @@
   </div>
 
   <script>
+    // Auto-close registration for tournaments whose date has passed
+    document.querySelectorAll('.schedule-item[data-date]').forEach(function(item) {
+      const eventEnd = new Date(item.dataset.date + 'T23:59:59');
+      if (eventEnd < new Date()) {
+        const tag = item.querySelector('.schedule-tag');
+        const closed = document.createElement('span');
+        closed.className = 'schedule-tag tag-closed';
+        closed.textContent = 'Closed';
+        tag.replaceWith(closed);
+      }
+    });
+
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('open');
