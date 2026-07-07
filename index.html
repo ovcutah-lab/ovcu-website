@@ -378,8 +378,17 @@
       border-radius: 20px;
       white-space: nowrap;
     }
-    a.schedule-tag { text-decoration: none; }
-    a.schedule-tag:hover { opacity: 0.85; }
+    a.schedule-tag {
+      text-decoration: none;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.8rem;
+      padding: 10px 22px;
+      border-radius: 6px;
+      box-shadow: 0 3px 10px rgba(245,124,0,0.35);
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    a.schedule-tag:hover { transform: translateY(-2px); opacity: 0.92; }
     @media (max-width: 600px) {
       .schedule-item { padding: 14px 16px; }
       .schedule-item-info { flex-direction: column; align-items: flex-start; gap: 4px; }
