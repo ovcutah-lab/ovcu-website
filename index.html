@@ -389,6 +389,38 @@
       transition: transform 0.15s, opacity 0.15s;
     }
     a.schedule-tag:hover { transform: translateY(-2px); opacity: 0.92; }
+    .schedule-flyer-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+      font-size: 1rem;
+      transition: transform 0.3s;
+    }
+    .schedule-flyer-btn.open { transform: rotate(180deg); }
+    .schedule-flyer-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .schedule-flyer-panel.open { max-height: 500px; }
+    .schedule-flyer-panel-inner {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .schedule-flyer-panel img {
+      display: block;
+      max-width: 240px;
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
     @media (max-width: 600px) {
       .schedule-item { padding: 14px 16px; }
       .schedule-item-info { flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -1199,7 +1231,17 @@
               <div class="schedule-detail">Triples &bull; Barnes Park, Kaysville</div>
             </div>
           </div>
-          <span class="schedule-tag tag-open">Open</span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="schedule-tag tag-open">Open</span>
+            <button class="schedule-flyer-btn" onclick="toggleFlyer('flyer-jun20', this)" aria-label="View OVCU 3's flyer">
+              <span>&#9660;</span>
+            </button>
+          </div>
+        </div>
+        <div class="schedule-flyer-panel" id="flyer-jun20">
+          <div class="schedule-flyer-panel-inner">
+            <img src="images/june-3s-flyer.jpg" alt="OVCU 3's June 20 Tournament Flyer" />
+          </div>
         </div>
 
         <div class="schedule-month">July</div>
@@ -1211,7 +1253,17 @@
               <div class="schedule-detail">Men's &amp; Women's Doubles &bull; Barnes Park, Kaysville</div>
             </div>
           </div>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSc1qlnYlzGuH2AF3_wMI1F1L6tzMkxaYTcT-RrxwCVhl00ENg/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSc1qlnYlzGuH2AF3_wMI1F1L6tzMkxaYTcT-RrxwCVhl00ENg/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
+            <button class="schedule-flyer-btn" onclick="toggleFlyer('flyer-jul18', this)" aria-label="View OVCU Doubles flyer">
+              <span>&#9660;</span>
+            </button>
+          </div>
+        </div>
+        <div class="schedule-flyer-panel" id="flyer-jul18">
+          <div class="schedule-flyer-panel-inner">
+            <img src="images/july-18-doubles-flyer.jpg" alt="OVCU x OKI Athletics July 18 Doubles Tournament Flyer" />
+          </div>
         </div>
         <div class="schedule-item" data-date="2026-07-25">
           <div class="schedule-item-info">
@@ -1221,7 +1273,17 @@
               <div class="schedule-detail">Triples &bull; Orem</div>
             </div>
           </div>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSefzn0dZAOOhBEtFGB8DMxo4Wu8qpwoj23U5uol-B0m-M7msQ/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSefzn0dZAOOhBEtFGB8DMxo4Wu8qpwoj23U5uol-B0m-M7msQ/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
+            <button class="schedule-flyer-btn" onclick="toggleFlyer('flyer-jul25', this)" aria-label="View OVCU Summer Slam Triples flyer">
+              <span>&#9660;</span>
+            </button>
+          </div>
+        </div>
+        <div class="schedule-flyer-panel" id="flyer-jul25">
+          <div class="schedule-flyer-panel-inner">
+            <img src="images/july-25-summer-slam-flyer.png" alt="OVCU Summer Slam Triples July 25 Tournament Flyer" />
+          </div>
         </div>
 
         <div class="schedule-month">August</div>
@@ -1634,6 +1696,11 @@
     function toggleMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('open');
+    }
+
+    function toggleFlyer(id, btn) {
+      document.getElementById(id).classList.toggle('open');
+      btn.classList.toggle('open');
     }
 
     // Close mobile menu on outside click
