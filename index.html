@@ -1773,59 +1773,72 @@
       }, 3000);
     }
 
-    // Hero video sound — browsers block autoplay with audio, so start muted
-    // and switch sound on at the first user interaction (or via the button).
+    // Hero video: play through once with sound, then mute and keep looping
+    // silently. Browsers block unmuted autoplay for most first-time visitors,
+    // so if the initial unmuted play is refused we run the with-sound pass on
+    // the first interaction instead. The sound toggle always stays available.
     (function() {
       const v = document.querySelector('.hero-video');
       const btn = document.getElementById('heroSound');
       if (!v || !btn) return;
-      let userSet = false;
+
+      let userControlled = false;  // user clicked the toggle -> respect their choice
+      let soundPassDone = false;   // the one-time with-sound playthrough has finished
+      let lastTime = 0;
 
       function render() {
         btn.setAttribute('data-muted', v.muted ? 'true' : 'false');
         btn.setAttribute('aria-label', v.muted ? 'Turn video sound on' : 'Turn video sound off');
       }
-
-      function soundOn() {
-        v.muted = false;
+      function safePlay() {
         const p = v.play();
         if (p && p.catch) p.catch(function(){});
-        render();
       }
 
-      // Optimistic attempt — works where the browser permits unmuted autoplay.
+      // When the loop restarts, currentTime jumps back toward 0 — that marks the
+      // end of the first full pass, so drop the sound from then on.
+      v.addEventListener('timeupdate', function() {
+        if (!soundPassDone && !userControlled && lastTime > 1 && v.currentTime + 0.5 < lastTime) {
+          soundPassDone = true;
+          v.muted = true;
+          render();
+        }
+        lastTime = v.currentTime;
+      });
+
+      // Try to start with sound immediately.
       v.muted = false;
       const attempt = v.play();
       if (attempt && attempt.catch) {
         attempt.catch(function() {
+          // Blocked: play silently for now, do the with-sound pass on a gesture.
           v.muted = true;
-          const r = v.play();
-          if (r && r.catch) r.catch(function(){});
+          safePlay();
           render();
+          const events = ['pointerdown', 'keydown', 'touchstart'];
+          function cleanup() {
+            events.forEach(function(t) { window.removeEventListener(t, start, true); });
+          }
+          function start(e) {
+            if (btn.contains(e.target) || userControlled || soundPassDone) { cleanup(); return; }
+            v.currentTime = 0;
+            lastTime = 0;
+            v.muted = false;
+            safePlay();
+            render();
+            cleanup();
+          }
+          events.forEach(function(t) { window.addEventListener(t, start, true); });
         });
       }
 
-      function onFirstInteraction(e) {
-        if (btn.contains(e.target)) return;
-        if (!userSet) soundOn();
-        cleanup();
-      }
-      function cleanup() {
-        ['pointerdown', 'keydown', 'touchstart'].forEach(function(t) {
-          window.removeEventListener(t, onFirstInteraction, true);
-        });
-      }
-      ['pointerdown', 'keydown', 'touchstart'].forEach(function(t) {
-        window.addEventListener(t, onFirstInteraction, true);
-      });
-
+      // Manual control — always available.
       btn.addEventListener('click', function() {
-        userSet = true;
+        userControlled = true;
+        soundPassDone = true;
         v.muted = !v.muted;
-        const p = v.play();
-        if (p && p.catch) p.catch(function(){});
+        safePlay();
         render();
-        cleanup();
       });
 
       render();
