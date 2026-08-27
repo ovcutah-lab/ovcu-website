@@ -254,6 +254,35 @@
       text-shadow: 0 1px 12px rgba(0,0,0,0.4);
     }
     .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-sound {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.45);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .hero-sound:hover { background: rgba(0,0,0,0.7); }
+    .hero-sound svg { width: 15px; height: 15px; fill: currentColor; display: block; }
+    .hero-sound .icon-on { display: none; }
+    .hero-sound[data-muted="false"] .icon-on { display: block; }
+    .hero-sound[data-muted="false"] .icon-off { display: none; }
+    .hero-sound[data-muted="false"] .hero-sound-label { display: none; }
+    @media (max-width: 600px) { .hero-sound { right: 16px; bottom: 16px; } }
     .tag-open { background: rgba(76, 175, 80, 0.18); color: #66bb6a; }
     .tag-soon { background: rgba(245, 124, 0, 0.18); color: var(--orange-light); }
     .tag-closed { background: rgba(158, 158, 158, 0.18); color: #9e9e9e; }
@@ -1100,8 +1129,41 @@
     <a href="#schedule" class="btn btn-primary" onclick="toggleMenu()" style="text-align:center;">Register Now</a>
   </div>
 
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto"
+           poster="images/hero-video-poster.jpg">
+      <source src="video/hero.webm" type="video/webm" />
+      <source src="video/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <button class="hero-sound" id="heroSound" type="button" data-muted="true" aria-label="Turn video sound on">
+      <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1c2.9.9 5 3.5 5 6.7s-2.1 5.8-5 6.7v2.1c4-1 7-4.6 7-8.8s-3-7.8-7-8.8z" opacity=".35"/><path d="M4.3 3 3 4.3l7 7v.7L5 16H3v-4H1v6h4l5 5v-6.7l4.3 4.3c-.6.5-1.4.9-2.3 1.1v2.1c1.5-.3 2.8-.9 3.9-1.8L19.7 22 21 20.7 4.3 3z"/></svg>
+      <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1c2.9.9 5 3.5 5 6.7s-2.1 5.8-5 6.7v2.1c4-1 7-4.6 7-8.8s-3-7.8-7-8.8z"/></svg>
+      <span class="hero-sound-label">Tap for sound</span>
+    </button>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Utah's Premier Grass Volleyball</div>
+        <h1 class="hero-title">
+          Play. Compete.<br>
+          <span class="accent">Rise Up.</span>
+        </h1>
+        <p class="hero-sub">
+          Outdoor Volleyball Club of Utah runs competitive grass volleyball
+          tournaments across the Wasatch Front — all skill levels welcome,
+          from Novice to AA.
+        </p>
+        <div class="hero-actions">
+          <a href="#schedule" class="btn btn-primary">Register for a Tournament</a>
+          <a href="#schedule" class="btn btn-outline">View Schedule</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Tournaments (Featured) ── -->
-  <section class="tournaments" id="tournaments" style="padding-top: 120px;">
+  <section class="tournaments" id="tournaments">
     <div class="container">
       <div class="tournaments-header">
         <div>
@@ -1160,34 +1222,6 @@
 
         <div class="tourney-flyer" id="tourneyFlyer">
           <img src="images/august-22-coed4s-flyer.jpg" alt="OVCU Coed 4s Grass Tourney August 22 Flyer" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Hero ── -->
-  <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto"
-           poster="images/hero-video-poster.jpg">
-      <source src="video/hero.webm" type="video/webm" />
-      <source src="video/hero.mp4" type="video/mp4" />
-    </video>
-    <div class="hero-overlay"></div>
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <div class="hero-eyebrow">Utah's Premier Grass Volleyball</div>
-        <h1 class="hero-title">
-          Play. Compete.<br>
-          <span class="accent">Rise Up.</span>
-        </h1>
-        <p class="hero-sub">
-          Outdoor Volleyball Club of Utah runs competitive grass volleyball
-          tournaments across the Wasatch Front — all skill levels welcome,
-          from Novice to AA.
-        </p>
-        <div class="hero-actions">
-          <a href="#schedule" class="btn btn-primary">Register for a Tournament</a>
-          <a href="#schedule" class="btn btn-outline">View Schedule</a>
         </div>
       </div>
     </div>
@@ -1739,16 +1773,62 @@
       }, 3000);
     }
 
-    // Hero slideshow
+    // Hero video sound — browsers block autoplay with audio, so start muted
+    // and switch sound on at the first user interaction (or via the button).
     (function() {
-      const slides = document.querySelectorAll('#heroSlideshow img');
-      if (!slides.length) return;
-      let current = 0;
-      setInterval(function() {
-        slides[current].classList.remove('active');
-        current = (current + 1) % slides.length;
-        slides[current].classList.add('active');
-      }, 3500);
+      const v = document.querySelector('.hero-video');
+      const btn = document.getElementById('heroSound');
+      if (!v || !btn) return;
+      let userSet = false;
+
+      function render() {
+        btn.setAttribute('data-muted', v.muted ? 'true' : 'false');
+        btn.setAttribute('aria-label', v.muted ? 'Turn video sound on' : 'Turn video sound off');
+      }
+
+      function soundOn() {
+        v.muted = false;
+        const p = v.play();
+        if (p && p.catch) p.catch(function(){});
+        render();
+      }
+
+      // Optimistic attempt — works where the browser permits unmuted autoplay.
+      v.muted = false;
+      const attempt = v.play();
+      if (attempt && attempt.catch) {
+        attempt.catch(function() {
+          v.muted = true;
+          const r = v.play();
+          if (r && r.catch) r.catch(function(){});
+          render();
+        });
+      }
+
+      function onFirstInteraction(e) {
+        if (btn.contains(e.target)) return;
+        if (!userSet) soundOn();
+        cleanup();
+      }
+      function cleanup() {
+        ['pointerdown', 'keydown', 'touchstart'].forEach(function(t) {
+          window.removeEventListener(t, onFirstInteraction, true);
+        });
+      }
+      ['pointerdown', 'keydown', 'touchstart'].forEach(function(t) {
+        window.addEventListener(t, onFirstInteraction, true);
+      });
+
+      btn.addEventListener('click', function() {
+        userSet = true;
+        v.muted = !v.muted;
+        const p = v.play();
+        if (p && p.catch) p.catch(function(){});
+        render();
+        cleanup();
+      });
+
+      render();
     })();
 
     // Smooth nav background on scroll
