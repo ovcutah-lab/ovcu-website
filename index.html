@@ -1174,7 +1174,7 @@
       </div>
 
       <!-- Featured Tournament with Flyer -->
-      <div class="featured-tourney" style="display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start;">
+      <div class="featured-tourney" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
         <div class="featured-details">
           <div class="detail-block" style="margin-bottom: 8px;">
             <div class="label">Date</div>
@@ -1218,6 +1218,10 @@
           <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 12px;">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfVFnkZIAYkMlALAOEfP_7zTp_oslEPx8uTq2qOoHkxVeRu8A/viewform" target="_blank" rel="noopener" class="btn btn-primary">Register for Sep 19 — Coed 4v4</a>
           </div>
+        </div>
+
+        <div class="tourney-flyer" id="tourneyFlyer">
+          <img src="images/september-19-usu-coed4s-flyer.jpg" alt="USU x OVCU Coed 4v4 Grass Tourney September 19 Flyer" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);" />
         </div>
       </div>
     </div>
@@ -1355,7 +1359,17 @@
               <div class="schedule-detail">Coed 4v4 Grass &bull; The Quad, Utah State University, Logan, UT</div>
             </div>
           </div>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfVFnkZIAYkMlALAOEfP_7zTp_oslEPx8uTq2qOoHkxVeRu8A/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfVFnkZIAYkMlALAOEfP_7zTp_oslEPx8uTq2qOoHkxVeRu8A/viewform" target="_blank" rel="noopener" class="schedule-tag tag-open">Register</a>
+            <button class="schedule-flyer-btn" onclick="toggleFlyer('flyer-sep19', this)" aria-label="View USU x OVCU Coed 4v4 flyer">
+              <span>&#9660;</span>
+            </button>
+          </div>
+        </div>
+        <div class="schedule-flyer-panel" id="flyer-sep19">
+          <div class="schedule-flyer-panel-inner">
+            <img src="images/september-19-usu-coed4s-flyer.jpg" alt="USU x OVCU Coed 4v4 Grass Tourney September 19 Flyer" />
+          </div>
         </div>
 
         <div class="schedule-month">October</div>
